@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Patient Report</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: #333;
+}
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+.section {
+    margin-bottom: 20px;
+}
+.abnormal {
+    color: #f44336;
+}
+.tips {
+    color: #2196F3;
+}
+</style>
+</head>
+<body>
+    <h1>Patient Health Report</h1>
+
+    <div class="section">
+        <strong>Status:</strong> {{ status }}
+    </div>
+
+    <div class="section">
+        <strong>Abnormal Readings:</strong>
+        <ul>
+            {% for a in abnormal %}
+            <li class="abnormal">{{ a }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="section">
+        <strong>Health Tips:</strong>
+        <ul>
+            {% for t in tips %}
+            <li class="tips">{{ t }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Results</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+.card {
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<body class="bg-light">
+
+<div class="container">
+  <h1 class="my-4 text-center">Patient Results</h1>
+
+  <!-- Status -->
+  <div class="alert alert-info text-center">
+    Status: <strong>{{ status }}</strong>
+  </div>
+
+  <!-- Tips -->
+  {% if tips %}
+  <div class="alert alert-warning">
+    <h5>Health Tips:</h5>
+    <ul>
+      {% for tip in tips %}
+      <li>{{ tip }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <!-- Abnormal -->
+  {% if abnormal %}
+  <div class="alert alert-danger">
+    <h5>Abnormal Readings:</h5>
+    <ul>
+      {% for item in abnormal %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <!-- Button -->
+  <!-- <div class="text-center my-4">
+    <a href="/share" class="btn btn-primary">Share Results</a>
+  </div> -->
+  <a href="{{ url_for('tips') }}" class="btn btn-info">View Health Tips</a>
+
+
+  <!-- Charts -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <h5 class="text-center">Heart Rate</h5>
+        <canvas id="heartRateChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <h5 class="text-center">SpO₂</h5>
+        <canvas id="spo2Chart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <h5 class="text-center">Temperature</h5>
+        <canvas id="temperatureChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const heartRate = {{ heart_rate|default(75) }};
+const spo2 = {{ spo2|default(98) }};
+const temperature = {{ temperature|default(36.8) }};
+
+// Heart Rate Chart
+new Chart(document.getElementById('heartRateChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Heart Rate', 'Remaining'],
+    datasets: [{
+      data: [heartRate, 200 - heartRate],
+      backgroundColor: ['#ff6384', '#eee']
+    }]
+  }
+});
+
+// SpO₂ Chart
+new Chart(document.getElementById('spo2Chart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['SpO₂', 'Remaining'],
+    datasets: [{
+      data: [spo2, 100 - spo2],
+      backgroundColor: ['#36a2eb', '#eee']
+    }]
+  }
+});
+
+// Temperature Chart
+new Chart(document.getElementById('temperatureChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Temperature', 'Remaining'],
+    datasets: [{
+      data: [temperature, 42 - temperature],
+      backgroundColor: ['#ffcd56', '#eee']
+    }]
+  }
+});
+</script>
+
+</body>
+</html>
+
+
