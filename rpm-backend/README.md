@@ -24,7 +24,23 @@ MediPulse is a Flask-based Remote Patient Monitoring System that analyzes patien
 
 \- User-Friendly Web Interface
 
+## Screenshots
 
+### Home Page
+
+![Home Page](screenshots/home.png)
+
+### Results Page
+
+![Results Page](screenshots/results.png)
+
+### Tips Page
+
+![Tips Page](screenshots/tips.png)
+
+### PDF Report
+
+![PDF Report](screenshots/pdf-report.png)
 
 \## Technologies Used
 
